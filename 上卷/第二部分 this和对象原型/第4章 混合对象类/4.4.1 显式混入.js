@@ -3,62 +3,59 @@
 // 由于其他语言中类表现出来的都是复制行为,因此JavaScript开发者也想除了一个方法来模拟类的复制行为,这个方法就是混入.
 
 // 4.4.1 显式混入
-function mixin(source, target) {
-    for (let key in source) {
-        if (!key in target) {
-            target[key] = source[key];
-        }
+function mixin (source, target) {
+  for (const key in source) {
+    if (!key in target) {
+      target[key] = source[key]
     }
-    return target;
+  }
+  return target
 }
 
-let Vehicle1 = {
-    engines: 1,
-    ignition: function () {
-        console.log("开启引擎");
-    },
-    drive: function () {
-        // this.ignition();
-        console.log("滚轮前进");
-    }
+const Vehicle1 = {
+  engines: 1,
+  ignition: function () {
+    console.log('开启引擎')
+  },
+  drive: function () {
+    // this.ignition();
+    console.log('滚轮前进')
+  }
 }
 
-let Car1 = mixin(Vehicle1, {
-    wheels: 4,
-    drive: function () {
-        Vehicle1.drive.call(this);
-        console.log("滚动所有" + this.wheels + "个轮子");
-    }
-});
+const Car1 = mixin(Vehicle1, {
+  wheels: 4,
+  drive: function () {
+    Vehicle1.drive.call(this)
+    console.log('滚动所有' + this.wheels + '个轮子')
+  }
+})
 
-Car1.drive();
+Car1.drive()
 
 // 3.寄生继承
-function Vehicle3() {
-    this.engines = 1;
+function Vehicle3 () {
+  this.engines = 1
 }
 
 Vehicle3.prototype.ignition = function () {
-    console.log("开启引擎");
-};
+  console.log('开启引擎')
+}
 Vehicle3.prototype.drive = function () {
-    this.ignition();
-    console.log("滚轮前进");
-};
-
-function Car3() {
-    let car = new Vehicle3();
-    car.wheels = 4;
-
-    let vehicleDrive = car.drive;
-    car.drive = function () {
-        vehicleDrive.call(this);
-        console.log("滚动所有" + this.wheels + "个轮子");
-    };
-    return car;
+  this.ignition()
+  console.log('滚轮前进')
 }
 
-new Car3().drive();
+function Car3 () {
+  const car = new Vehicle3()
+  car.wheels = 4
 
+  const vehicleDrive = car.drive
+  car.drive = function () {
+    vehicleDrive.call(this)
+    console.log('滚动所有' + this.wheels + '个轮子')
+  }
+  return car
+}
 
-
+new Car3().drive()
