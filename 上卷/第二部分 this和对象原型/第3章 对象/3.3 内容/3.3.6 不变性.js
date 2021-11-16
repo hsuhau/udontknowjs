@@ -3,23 +3,23 @@
 // 很重要的一点是,所有的方法创建的都是浅不变性,也就是说,它们只会影响目标对象和它的直接属性.吐过目标对象引用了其他对象(数组 对象 函数 等),其他都想的内容不受有影响,仍然是可变的
 
 // 1.对象常量
-const myObject = {};
+const myObject = {}
 
 Object.defineProperty(
-    myObject, "FAVORITE NUMBER", {
-        value: 24,
-        writable: false,
-        configurable: false
-    }
-);
+  myObject, 'FAVORITE NUMBER', {
+    value: 24,
+    writable: false,
+    configurable: false
+  }
+)
 
 // 2.禁止扩展
 const myObj = {
-    a: 2
-};
-Object.preventExtensions(myObj);
-myObj.b = 3;
-console.log(myObj.b);
+  a: 2
+}
+Object.preventExtensions(myObj)
+myObj.b = 3
+console.log(myObj.b)
 
 // 3.密封
 // Object.seal(..) 会创建一个密封的对象,这个方法实际上会有一个现有对象是能够调用Object.preventExtensions(..)并把现有属性表记为configurable:false
